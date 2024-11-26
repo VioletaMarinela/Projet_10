@@ -1,13 +1,14 @@
 import React from 'react';
+import '../Assets/css/Hero.css';
 
-import Background from '../Assets/img/bank-tree.webp';
+
 
 import '../Assets/css/Hero.css';
 
 const Hero = () => {
     return (
         <div className="hero">
-            <img src={Background} alt="Background" />
+
             <section className="hero-content">
                 <h2 className="sr-only">Promoted Content</h2>
                 <p className="subtitle">No fees.</p>

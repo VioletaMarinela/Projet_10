@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 
 import Logo from '../../Assets/img/argentBankLogo.webp';
-
+import '../../Assets/css/main.css';
 const Header = () => {
 
     const navigate = useNavigate()
