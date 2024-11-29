@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
+
+import { accountService } from '../../_Service/accountService';
+
 import '../../Assets/css/Sign-in.css';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // This runs once when the component mounts  
         const handleForgotPassword = () => {
             alert("Mot de passe oublié? Veuillez contacter l'administrateur du site.");
         };
@@ -17,7 +21,6 @@ const SignIn = () => {
             forgotPasswordButton.addEventListener("click", handleForgotPassword);
         }
 
-        // Cleanup the event listener on unmount  
         return () => {
             if (forgotPasswordButton) {
                 forgotPasswordButton.removeEventListener("click", handleForgotPassword);
@@ -27,47 +30,31 @@ const SignIn = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await authenticateUser();
-    };
 
-    const authenticateUser = async () => {
         const formData = {
             email,
             password,
         };
 
-        const resultpost = await postinfo(formData);
-
-        if (resultpost.status === 200) {
-            await stockTokeninlocalstorage(resultpost);
-            setMessage("Connexion réussie");
-
-            setTimeout(() => {
-                window.location.href = "./user.html";
-            }, 1000);
-        } else {
-            setMessage("Identifiants incorrects.");
+        try {
+            accountService.loginConnect(formData)
+                .then((response) => {
+                    const token = response.data.body.token;
+                    accountService.savetoken(token);
+                    navigate("/userprofile", { replace: true })
+                })
+                .catch((error) => {
+                    setMessage(error)
+                    alert("Merci d'entrer une adressemail ou un mot de passe valide");
+                })
+        } catch (error) {
+            if (error.response) {
+                setMessage(error.response.data.message)
+            }
         }
+
     };
 
-    const postinfo = async (formData) => {
-        return fetch("http://localhost:3001/api-docs", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8',
-            },
-            body: JSON.stringify(formData),
-        })
-            .then((response) => response)
-            .catch((error) => {
-                console.error('Il y a eu une erreur:', error);
-            });
-    };
-
-    const stockTokeninlocalstorage = async (resultpost) => {
-        const token = await resultpost.json();
-        window.localStorage.setItem("token", token.token);
-    };
 
     return (
         <div>
@@ -94,8 +81,9 @@ const SignIn = () => {
                 </div>
                 <button type="submit" className="sign-in-button">Sign In</button>
                 <p className="message">{message}</p>
-                <div class="input-remember">
-                    <input type="checkbox" id="remember-me" /><label for="remember-me">Remember me</label>
+                <div className="input-remember">
+                    <input type="checkbox" id="remember-me" />
+                    <label htmlFor="remember-me">Remember me</label>
                 </div>
             </form>
         </div>

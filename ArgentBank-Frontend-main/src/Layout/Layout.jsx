@@ -9,7 +9,7 @@ const Layout = () => {
         <div className='MainLayout'>
             <Header />
             <main>
-                {<Outlet />}
+                <Outlet />
             </main>
             <Footer />
         </div>
