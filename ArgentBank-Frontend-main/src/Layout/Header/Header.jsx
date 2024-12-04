@@ -1,17 +1,18 @@
 import React from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
-
 import Logo from '../../Assets/img/argentBankLogo.webp';
 import '../../Assets/css/main.css';
+import { accountService } from '../../_Service/accountService';
+
 const Header = () => {
-
-    const navigate = useNavigate()
-
-    const userisconnected = false;
+    const navigate = useNavigate();
+    const userisconnected = accountService.ConnectorNotConnect();
     const firstName = "Tony";
+
     let logout = () => {
-        navigate("/home")
-    }
+        accountService.logout();
+        navigate("/home");
+    };
 
     return (
         <header className="main-nav">
@@ -20,8 +21,7 @@ const Header = () => {
                 <h1 className="sr-only">Argent Bank</h1>
             </NavLink>
 
-            {
-                userisconnected &&
+            {userisconnected ? (
                 <nav>
                     <NavLink to="/user" className="main-nav-item">
                         <i className="fa fa-user-circle"></i>
@@ -32,19 +32,15 @@ const Header = () => {
                         Sign Out
                     </NavLink>
                 </nav>
-            }
-            {
-                !userisconnected &&
+            ) : (
                 <nav>
                     <NavLink to="/signin" className="main-nav-item">
                         <i className="fa fa-user-circle" />
                         Sign In
                     </NavLink>
                 </nav>
-            }
-
+            )}
         </header>
-
     );
 };
 

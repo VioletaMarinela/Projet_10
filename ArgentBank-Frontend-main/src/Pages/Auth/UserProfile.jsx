@@ -1,31 +1,55 @@
-import React, { useEffect } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { accountuser } from '../../Assets/Data/account';
-
-import '../../Assets/css/User.css';
 import { accountService } from '../../_Service/accountService';
-
+import '../../Assets/css/User.css';
 
 const UserProfile = () => {
+    const navigate = useNavigate();
+    const [isEditing, setIsEditing] = useState(false);
+    const [firstName, setFirstName] = useState("MICHEL");
 
     useEffect(() => {
-        if (accountService.ConnectorNotConnect()) {
-            getInfo();
+        if (!accountService.ConnectorNotConnect()) {
+            navigate('/signin');
         } else {
-            navigate('/home');
+            getInfo();
         }
-    }, [])
+    }, [navigate]);
 
     const getInfo = () => {
-        // on utilise l'appel du swagger 
-    }
+        // Utilisez l'appel du swagger pour récupérer les informations de l'utilisateur
+    };
+
+    const handleEditClick = () => {
+        setIsEditing(true);
+    };
+
+    const handleSaveClick = () => {
+        // Sauvegarder le prénom mis à jour (par exemple, en appelant une API)
+        setIsEditing(false);
+    };
+
+    const handleInputChange = (event) => {
+        setFirstName(event.target.value);
+    };
 
     return (
         <section>
-
             <div className="header">
-                <h1>Welcome back<br />MICHEL!</h1>
-                <button className="edit-button">Edit Name</button>
+                <h1>Welcome back<br />{firstName}!</h1>
+                {isEditing ? (
+                    <div>
+                        <input
+                            type="text"
+                            value={firstName}
+                            onChange={handleInputChange}
+                        />
+                        <button onClick={handleSaveClick} className="save-button">Save</button>
+                    </div>
+                ) : (
+                    <button onClick={handleEditClick} className="edit-button">Edit Name</button>
+                )}
             </div>
             <h2 className="sr-only">Accounts</h2>
             {accountuser.map((account) => (
@@ -40,8 +64,6 @@ const UserProfile = () => {
                     </div>
                 </section>
             ))}
-
-
         </section>
     );
 };
