@@ -1,34 +1,46 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from "@reduxjs/toolkit";
+import { getProfile, updateProfile } from "../Actions/profileActions";
 
-// Définir une fonction pour interagir avec l'API  
-export const fetchData = createAsyncThunk('api/fetchData', async () => {
-    const response = await axios.get('http://localhost:3000/api/endpoint'); // Remplacez par l'URL de votre API  
-    return response.data;
-});
+const initialState = {
+    id: null,
+    email: null,
+    firstName: null,
+    lastName: null,
+    userName: null,
+    token: null, // Ajout du token ici  
+};
 
-const apiSlice = createSlice({
-    name: 'api',
-    initialState: {
-        data: [],
-        status: 'idle',
-        error: null,
+export const user = createSlice({
+    name: "user",
+    initialState,
+    reducers: {
+        setUser: (state, action) => {
+            return { ...state, ...action.payload }; // Mettez à jour l'utilisateur avec les nouvelles informations  
+        },
+        setToken: (state, action) => {
+            state.token = action.payload; // Met à jour le token  
+        },
+        setUsername: (state, action) => {
+            state.userName = action.payload.userName; // Correction du nom, devrait être userName  
+        },
     },
-    reducers: {},
     extraReducers: (builder) => {
-        builder
-            .addCase(fetchData.pending, (state) => {
-                state.status = 'loading';
-            })
-            .addCase(fetchData.fulfilled, (state, action) => {
-                state.status = 'succeeded';
-                state.data = action.payload;
-            })
-            .addCase(fetchData.rejected, (state, action) => {
-                state.status = 'failed';
-                state.error = action.error.message;
-            });
+        builder.addCase(getProfile.pending, (state) => initialState);
+        builder.addCase(getProfile.fulfilled, (state, action) => {
+            return { ...state, ...action.payload }; // Mise à jour de l'état utilisateur avec les infos récupérées  
+        });
+        builder.addCase(getProfile.rejected, (state) => {
+            console.error("Erreur lors de la récupération du profil de l'utilisateur.");
+        });
+        builder.addCase(updateProfile.pending, (state) => state); // Vous pouvez choisir de ne pas mettre à jour l'état pendant le chargement  
+        builder.addCase(updateProfile.fulfilled, (state, action) => {
+            return { ...state, ...action.payload }; // Mettez à jour avec les données de l'utilisateur mises à jour  
+        });
+        builder.addCase(updateProfile.rejected, (state) => {
+            console.error("Erreur lors de la modification du profil de l'utilisateur.");
+        });
     },
 });
 
-export default apiSlice.reducer;
+export const { setUser, setToken, setUsername } = user.actions;
+export default user.reducer;

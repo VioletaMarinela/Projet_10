@@ -1,4 +1,4 @@
-import Axios from './callerService.js';
+import Axios from './callerService.jsx';
 
 let loginConnect = (data) => {
     return Axios.post('/api/v1/user/login', data)
@@ -26,5 +26,5 @@ export const accountService = {
     logout,
     savetoken,
     getToken,
-    ConnectorNotConnect,
+    ConnectorNotConnect
 }
