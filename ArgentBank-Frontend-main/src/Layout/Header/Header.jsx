@@ -23,7 +23,7 @@ const Header = () => {
 
             {userisconnected ? (
                 <nav>
-                    <NavLink to="/user" className="main-nav-item">
+                    <NavLink to="/userprofile" className="main-nav-item">
                         <i className="fa fa-user-circle"></i>
                         {firstName}
                     </NavLink>

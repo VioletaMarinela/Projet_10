@@ -1,8 +1,8 @@
 // UserProfile.js  
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getProfile, updateProfile } from '../../Redux/Actions/profileActions';
+import { useDispatch } from 'react-redux';
+
 import { accountuser } from '../../Assets/Data/account';
 import { accountService } from '../../_Service/accountService';
 import '../../Assets/css/User.css';
@@ -10,62 +10,89 @@ import '../../Assets/css/User.css';
 const UserProfile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [loading, setloading] = useState(true);
+    const [error, seterror] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [firstName, setFirstName] = useState("");
-
-    const profile = useSelector((state) => state.profile);
-    const { userDetails, loading, error } = profile;
+    const [lastName, setlastName] = useState("");
+    const [userName, setuserName] = useState("");
 
     // Vérification de la connexion et récupération du profil utilisateur  
     useEffect(() => {
         if (!accountService.ConnectorNotConnect()) {
             navigate('/signin');
         } else {
-            dispatch(getProfile({ token: accountService.getToken() }));
+            setinfo()
         }
     }, [dispatch, navigate]);
 
-    // Mise à jour du prénom lorsque `userDetails` change  
-    useEffect(() => {
-        if (userDetails) {
-            setFirstName(userDetails.firstName);
+    const setinfo = async () => {
+        const token = accountService.getToken();
+        const decodetoken = await accountService.getProfile(token);
+
+        if (decodetoken) {
+            setFirstName(decodetoken.firstName);
+            setlastName(decodetoken.lastName);
+            setuserName(decodetoken.userName);
+            dispatch({ type: "User/setUserProfile", payload: { userName: decodetoken.userName } })
+
+            setloading(false)
+        } else {
+            seterror(true)
         }
-    }, [userDetails]);
+    }
 
-    const handleEditClick = () => {
-        setIsEditing(true);
-    };
+    let reset = () => {
+        setIsEditing(false)
+        setuserName(userName)
+    }
 
-    const handleSaveClick = () => {
-        dispatch(updateProfile({ token: accountService.getToken(), firstName }))
-            .then(() => setIsEditing(false))
-            .catch((error) => {
-                console.error('Erreur lors de la mise à jour du profil:', error);
-            });
-    };
+    let handleUpdate = () => {
+        update(userName)
+        setIsEditing(false)
+    }
 
-    const handleInputChange = (event) => {
-        setFirstName(event.target.value);
-    };
+    const update = async () => {
+        await accountService.updateprofile({ userName: userName })
+        dispatch({ type: "User/setUserProfile", payload: { userName: userName } })
+    }
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
 
     return (
         <section>
             <div className="header">
-                <h1>Welcome back<br />{firstName || "User"}!</h1> {/* Afficher "User" si firstName est vide */}
-                {isEditing ? (
+
+                {
+                    !isEditing &&
                     <div>
-                        <input
-                            type="text"
-                            value={firstName}
-                            onChange={handleInputChange}
-                        />
-                        <button onClick={handleSaveClick} className="save-button">Save</button>
+                        <h1>Welcome back<br />{firstName} {lastName}!</h1>
+                        <button className="edit-button" onClick={() => setIsEditing(true)}>Edit Name</button>
                     </div>
-                ) : (
-                    <button onClick={handleEditClick} className="edit-button">Edit Name</button>
-                )}
-                {loading && <p>Loading...</p>}
-                {error && <p>Error: {error}</p>}
+                }
+                {
+                    isEditing &&
+                    <div>
+                        <h1>Welcome back</h1>
+                        <section className='update'>
+                            <div className='input-update'>
+                                <input type='text' value={firstName} disabled />
+                                <input type='text' value={lastName} disabled />
+                                <input type='text' value={userName} onChange={(e) => setuserName(e.target.value)} />
+                            </div>
+                            <div className='button-update'>
+                                <button className="edit-button" onClick={handleUpdate}>Save</button>
+                                <button className="edit-button" onClick={reset}>Cancel</button>
+                            </div>
+                        </section>
+                    </div>
+                }
             </div>
             <h2 className="sr-only">Accounts</h2>
             {accountuser.length > 0 ? ( // Vérification si il y a des comptes à afficher  

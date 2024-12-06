@@ -4,6 +4,30 @@ let loginConnect = (data) => {
     return Axios.post('/api/v1/user/login', data)
 }
 
+let getProfile = async (token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    }
+    return await Axios
+        .get('/api/v1/user/profile', config)
+        .then((res) => { return res.data.body })
+        .catch((error) => { return error })
+}
+
+let updateprofile = async (username) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${getToken()}`,
+        },
+    }
+    return await Axios
+        .put('/api/v1/user/profile', username, config)
+        .then((res) => { return res.data.body })
+        .catch((error) => { return error })
+}
+
 let logout = () => {
     localStorage.removeItem('KeyToken')
 }
@@ -26,5 +50,7 @@ export const accountService = {
     logout,
     savetoken,
     getToken,
+    getProfile,
+    updateprofile,
     ConnectorNotConnect
 }
