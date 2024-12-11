@@ -1,16 +1,82 @@
+.sr-only {
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    /* 1 */
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    /* 2 */
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important;
+    /* 3 */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: white;
+    ;
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    margin: 30px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.user-header {
+    background-color: white;
+    color: #00bc77;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-details {
+    display: flex;
+    align-items: center;
+}
+
+.settings-button,
+.logout-button {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
 .account {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid black;
-    background-color: #fff;
+    color: #fff;
+    border-radius: 10px;
+    border: 1px solid rgb(96, 93, 93);
+    background-color: #424240;
     width: 80%;
     margin: 0 auto;
     flex-direction: column;
     padding: 1.5rem;
     box-sizing: border-box;
     text-align: left;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+}
+
+.account-content-wrapper {
+    width: 100%;
+    flex: 1;
+}
+
+.account-title {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: normal;
 }
 
 .account-amount {
@@ -23,24 +89,98 @@
     margin: 0;
 }
 
-.account-title {
-    margin: 0;
-    padding: 0;
-    font-size: 1rem;
-    font-weight: normal;
-}
-
-.account-content-wrapper {
-    width: 100%;
-    flex: 1;
-}
-
 .edit-button {
     border-color: #00bc77;
     background-color: #00bc77;
     color: #fff;
     font-weight: bold;
     padding: 10px;
+}
+
+.update {
+    width: 20%;
+    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #3A3A3A;
+}
+
+.input-update {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+    margin-bottom: 20px;
+
+}
+
+.input-update input {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+}
+
+.button-update {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-update button {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #42b983;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button-update button:last-child {
+    margin-right: 0;
+}
+
+.button-update:hover {
+    color: white;
+}
+
+.input-row {
+    color: #3A3A3A;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.input-row label {
+    width: 100px;
+    margin-right: 10px;
+}
+
+.disabled-input {
+    padding: 10px;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    background-color: #d1d1d3;
+    color: #57595b;
+    cursor: not-allowed;
+}
+
+input[type="text"]:not(.disabled-input) {
+    padding: 10px;
+    border: 1px solid #272828;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+button.edit-button {
+    margin-left: 10px;
 }
 
 .transaction-button {

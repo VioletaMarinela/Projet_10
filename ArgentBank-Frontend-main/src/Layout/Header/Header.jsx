@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import Logo from '../../Assets/img/argentBankLogo.webp';
 import '../../Assets/css/main.css';
 import { accountService } from '../../_Service/accountService';
@@ -7,7 +8,7 @@ import { accountService } from '../../_Service/accountService';
 const Header = () => {
     const navigate = useNavigate();
     const userisconnected = accountService.ConnectorNotConnect();
-    const firstName = "Tony";
+    const userName = useSelector((state) => state.user.userName);
 
     let logout = () => {
         accountService.logout();
@@ -24,8 +25,10 @@ const Header = () => {
             {userisconnected ? (
                 <nav>
                     <NavLink to="/userprofile" className="main-nav-item">
+                        <span>{userName}</span>
                         <i className="fa fa-user-circle"></i>
-                        {firstName}
+                        <i className="fa-solid fa-gear"></i>
+
                     </NavLink>
                     <NavLink to="/home" onClick={logout} className="main-nav-item">
                         <i className="fa fa-sign-out" />

@@ -21,33 +21,22 @@ body {
   background-color: #12002b;
 }
 
-.sr-only {
-  border: 0 !important;
-  clip: rect(1px, 1px, 1px, 1px) !important;
-  /* 1 */
-  -webkit-clip-path: inset(50%) !important;
-  clip-path: inset(50%) !important;
-  /* 2 */
-  height: 1px !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  padding: 0 !important;
-  position: absolute !important;
-  width: 1px !important;
-  white-space: nowrap !important;
-  /* 3 */
-}
-
 .main-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px 20px;
+  background-color: #ffffff;
+  /* Adding background color for better visibility */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Adding shadow for a subtle effect */
 }
 
 .main-nav a {
   font-weight: bold;
   color: #2c3e50;
+  transition: color 0.3s ease;
+  /* Adding transition for smooth hover effects */
 }
 
 .main-nav a.router-link-exact-active {
@@ -61,6 +50,8 @@ body {
 
 .main-nav-item:hover {
   text-decoration: underline;
+  color: #42b983;
+  /* Change color on hover for better visual feedback */
 }
 
 .main-nav-logo {
@@ -72,7 +63,6 @@ body {
   max-width: 100%;
   width: 200px;
 }
-
 
 .footer {
   display: flex;

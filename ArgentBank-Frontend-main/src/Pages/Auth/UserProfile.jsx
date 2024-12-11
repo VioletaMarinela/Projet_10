@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
+import arrowRightImg from '../../Assets/img/arrow_right.png';
 import { accountuser } from '../../Assets/Data/account';
 import { accountService } from '../../_Service/accountService';
 import '../../Assets/css/User.css';
@@ -20,7 +20,7 @@ const UserProfile = () => {
     // Vérification de la connexion et récupération du profil utilisateur  
     useEffect(() => {
         if (!accountService.ConnectorNotConnect()) {
-            navigate('/signin');
+            navigate('/home');
         } else {
             setinfo()
         }
@@ -79,12 +79,21 @@ const UserProfile = () => {
                 {
                     isEditing &&
                     <div>
-                        <h1>Welcome back</h1>
+                        <h1>Edit user info</h1>
                         <section className='update'>
                             <div className='input-update'>
-                                <input type='text' value={firstName} disabled />
-                                <input type='text' value={lastName} disabled />
-                                <input type='text' value={userName} onChange={(e) => setuserName(e.target.value)} />
+                                <div className="input-row">
+                                    <label>First Name:</label>
+                                    <input type='text' value={firstName} disabled className="disabled-input" />
+                                </div>
+                                <div className="input-row">
+                                    <label>Last Name:</label>
+                                    <input type='text' value={lastName} disabled className="disabled-input" />
+                                </div>
+                                <div className="input-row">
+                                    <label>User Name:</label>
+                                    <input type='text' value={userName} onChange={(e) => setuserName(e.target.value)} />
+                                </div>
                             </div>
                             <div className='button-update'>
                                 <button className="edit-button" onClick={handleUpdate}>Save</button>
@@ -95,7 +104,7 @@ const UserProfile = () => {
                 }
             </div>
             <h2 className="sr-only">Accounts</h2>
-            {accountuser.length > 0 ? ( // Vérification si il y a des comptes à afficher  
+            {accountuser.length > 0 ? (
                 accountuser.map((account) => (
                     <section className="account" key={account.title}>
                         <div className="account-content-wrapper">
@@ -104,7 +113,12 @@ const UserProfile = () => {
                             <p className="account-amount-description">{account.description}</p>
                         </div>
                         <div className="account-content-wrapper cta">
-                            <button className="transaction-button">View transactions</button>
+                            <img
+                                src={arrowRightImg}
+                                alt="Navigate"
+                                onClick={() => navigate(`/somepath/${account.title}`)}
+                                style={{ cursor: 'pointer' }}
+                            />
                         </div>
                     </section>
                 ))

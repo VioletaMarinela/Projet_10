@@ -1,4 +1,3 @@
-/** Import des modules nécessaires */
 import axios from 'axios';
 
 const Axios = axios.create({
@@ -9,9 +8,9 @@ const Axios = axios.create({
  * Interceptor pour injection token  
  */
 Axios.interceptors.request.use(request => {
-    const token = localStorage.getItem('token'); // Remplacez par votre moyen d'obtenir le token  
+    const token = localStorage.getItem('token');
     if (token) {
-        request.headers['Authorization'] = `Bearer ${token}`; // Ajoutez le token aux en-têtes  
+        request.headers['Authorization'] = `Bearer ${token}`;
     }
     return request;
 });
