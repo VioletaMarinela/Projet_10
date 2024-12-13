@@ -3,46 +3,52 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import Logo from '../../Assets/img/argentBankLogo.webp';
 import '../../Assets/css/main.css';
+import 'font-awesome/css/font-awesome.min.css';
 import { accountService } from '../../_Service/accountService';
 
 const Header = () => {
     const navigate = useNavigate();
-    const userisconnected = accountService.ConnectorNotConnect();
     const userName = useSelector((state) => state.user.userName);
 
-    let logout = () => {
+    const logout = () => {
         accountService.logout();
         navigate("/home");
     };
 
     return (
         <header className="main-nav">
-            <NavLink to="/home" className="main-nav-logo">
+
+            <NavLink to="/home" className="main-nav-item">
                 <img className="main-nav-logo-image" src={Logo} alt="Argent Bank Logo" />
-                <h1 className="sr-only">Argent Bank</h1>
             </NavLink>
 
-            {userisconnected ? (
-                <nav>
+            {
+                accountService.ConnectorNotConnect() &&
+                <div className='userHeaderRight'>
                     <NavLink to="/userprofile" className="main-nav-item">
                         <span>{userName}</span>
-                        <i className="fa fa-user-circle"></i>
-                        <i className="fa-solid fa-gear"></i>
+                    </NavLink>
 
+                    <NavLink to="/userprofile" className="main-nav-item">
+                        <i className="fa fa-user-circle"></i>
                     </NavLink>
+
+                    <i className="fas fa-cog"></i>
+
                     <NavLink to="/home" onClick={logout} className="main-nav-item">
-                        <i className="fa fa-sign-out" />
-                        Sign Out
+                        <i className="fas fa-power-off"></i>
                     </NavLink>
-                </nav>
-            ) : (
-                <nav>
+                </div>
+            }
+            {
+                !accountService.ConnectorNotConnect() &&
+                <nav className='navaccueil'>
                     <NavLink to="/signin" className="main-nav-item">
                         <i className="fa fa-user-circle" />
                         Sign In
                     </NavLink>
                 </nav>
-            )}
+            }
         </header>
     );
 };

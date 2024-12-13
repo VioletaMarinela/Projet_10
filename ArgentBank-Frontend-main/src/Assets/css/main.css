@@ -7,51 +7,71 @@ html {
 }
 
 body {
-  margin: 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  max-width: 1440px;
 }
 
 .main {
   flex: 1;
 }
 
-.bg-dark {
-  background-color: #12002b;
-}
-
 .main-nav {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 5px 20px;
-  background-color: #ffffff;
-  /* Adding background color for better visibility */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* Adding shadow for a subtle effect */
-}
-
-.main-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-  transition: color 0.3s ease;
-  /* Adding transition for smooth hover effects */
-}
-
-.main-nav a.router-link-exact-active {
   color: #42b983;
+  align-items: center;
+  font-size: 30px;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #ffffff;
+}
+
+
+.navaccueil {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: end;
+}
+
+.navprofil {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.userHeaderLeft {
+  display: flex;
+  align-items: center;
+  margin-right: 600px;
+  margin-left: 10px;
+}
+
+.userHeaderLeft a {
+  margin-left: 10px;
+}
+
+.userHeaderRight {
+  display: flex;
+  align-items: center;
+}
+
+.userHeaderRight i {
+  margin-left: 10px;
+}
+
+.userHeaderRight span {
+  margin: 10px;
 }
 
 .main-nav-item {
+  padding: 10px 20px 10px 20px;
   text-decoration: none;
-  margin-right: 0.5rem;
-}
-
-.main-nav-item:hover {
-  text-decoration: underline;
   color: #42b983;
-  /* Change color on hover for better visual feedback */
+
 }
 
 .main-nav-logo {
@@ -67,7 +87,6 @@ body {
 .footer {
   display: flex;
   justify-content: center;
-  border-top: 2px solid #ccc;
   padding: 2rem 0 1.5rem;
 }
 
