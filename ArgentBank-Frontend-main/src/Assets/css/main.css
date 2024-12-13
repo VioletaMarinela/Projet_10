@@ -20,11 +20,11 @@ body {
 .main-nav {
   display: flex;
   justify-content: space-between;
-  color: #42b983;
+  color: #61b37b;
   align-items: center;
   font-size: 30px;
-  margin-top: 20px;
-  padding: 10px 20px;
+  margin-top: 10px;
+
   background-color: #ffffff;
 }
 
@@ -34,6 +34,10 @@ body {
   align-items: center;
   width: 100%;
   justify-content: end;
+}
+
+.navaccueil i {
+  padding: 10px;
 }
 
 .navprofil {
@@ -70,7 +74,7 @@ body {
 .main-nav-item {
   padding: 10px 20px 10px 20px;
   text-decoration: none;
-  color: #42b983;
+  color: #61b37b;
 
 }
 
@@ -80,8 +84,8 @@ body {
 }
 
 .main-nav-logo-image {
-  max-width: 100%;
-  width: 200px;
+
+  width: 250px;
 }
 
 .footer {
@@ -96,6 +100,6 @@ body {
 }
 
 .header {
-  color: #42b983;
+  color: #61b37b;
   margin-bottom: 2rem;
 }

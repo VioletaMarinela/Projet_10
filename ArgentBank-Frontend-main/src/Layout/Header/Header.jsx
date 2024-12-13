@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import Logo from '../../Assets/img/argentBankLogo.webp';
+import Logo from '../../Assets/img/logoAB.webp';
 import '../../Assets/css/main.css';
 import 'font-awesome/css/font-awesome.min.css';
 import { accountService } from '../../_Service/accountService';

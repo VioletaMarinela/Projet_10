@@ -1,7 +1,6 @@
 body {
     font-family: 'Arial', sans-serif;
     background-color: white;
-    ;
     margin: 0;
     padding: 0;
 }
@@ -9,7 +8,7 @@ body {
 section {
     margin: 30px auto;
     background-color: white;
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
 }
 
@@ -39,7 +38,7 @@ section {
     align-items: center;
     color: #fff;
     border-radius: 10px;
-    background-color: #424240;
+    background-color: #3d3d3d;
     width: 80%;
     margin: 0 auto;
     flex-direction: column;
@@ -56,7 +55,7 @@ section {
 
 .account-title {
     margin: 0;
-    padding: 0;
+    padding: 5px;
     font-size: 1rem;
     font-weight: normal;
 }
@@ -64,19 +63,26 @@ section {
 .account-amount {
     margin: 0;
     font-size: 2.5rem;
-    font-weight: bold;
+    padding: 5px;
+    font-weight: normal;
 }
+
 
 .account-amount-description {
     margin: 0;
+    padding: 5px;
 }
 
 .edit-button {
-    border-color: #00bc77;
-    background-color: #00bc77;
-    color: #fff;
-    font-weight: bold;
+    flex: 1;
     padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #61b37b;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
 }
 
 .update {
@@ -88,25 +94,31 @@ section {
 }
 
 h1 {
-    font-size: 30px;
+    font-size: 35px;
+    font-weight: 100;
     font-family: 'Arial', sans-serif;
     text-align: center;
     color: #3A3A3A;
+
 }
 
 .input-update {
     display: flex;
     flex-direction: column-reverse;
-    gap: 10px;
+    gap: 5px;
     margin-bottom: 20px;
+}
 
+.input-update label {
+    font-size: 18px;
 }
 
 .input-update input {
     width: 50%;
     padding: 10px;
-    border: 1px solid #d1d1d1;
+    border: 1px solid #9e9e9e;
     border-radius: 4px;
+    font-size: 16px;
 }
 
 .button-update {
@@ -120,7 +132,7 @@ h1 {
     margin-right: 10px;
     border: none;
     border-radius: 4px;
-    background-color: #42b983;
+    background-color: #61b37b;
     color: white;
     cursor: pointer;
     font-size: 16px;
@@ -148,18 +160,18 @@ h1 {
 
 .disabled-input {
     padding: 10px;
-    border: 1px solid #d1d1d1;
+    border: 1px solid #c4c4c4;
     border-radius: 4px;
-    background-color: #d1d1d3;
-    color: #57595b;
+    background-color: #e7e7e7;
+    color: #9e9e9e;
     cursor: not-allowed;
 }
 
 input[type="text"]:not(.disabled-input) {
     padding: 10px;
-    border: 1px solid #272828;
+    border: 1px solid #c4c4c4;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 button.edit-button {
